@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html {
+    background: #080808;
+    /* Lenis drives scrolling; native smooth would fight it. */
+    scroll-behavior: auto;
+  }
+
+  body {
+    margin: 0;
+    background: #080808;
+    color: #c9c7c2;
+    font-family: "Archivo", system-ui, sans-serif;
+    font-variation-settings: "wdth" 100;
+    -webkit-font-smoothing: antialiased;
+    /* Guards the horizontal-scroll section and oversized display type. */
+    overflow-x: hidden;
+    overscroll-behavior-y: none;
+  }
+
+  ::selection {
+    background: #f2f0eb;
+    color: #080808;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+
+  /* Visible focus on every interactive element — never removed, only styled. */
+  :where(a, button, input, textarea, select, [tabindex]):focus-visible {
+    outline: 1px solid #f2f0eb;
+    outline-offset: 3px;
+  }
+
+  /* The custom cursor replaces the native one on fine pointers only. */
+  @media (hover: hover) and (pointer: fine) {
+    html.has-custom-cursor,
+    html.has-custom-cursor * {
+      cursor: none;
+    }
+  }
+}
+
+@layer components {
+  /* Wide-tracked wordmark treatment, matched to the real GAS avatar. */
+  .wordmark {
+    font-variation-settings: "wdth" 125, "wght" 700;
+    letter-spacing: 0.42em;
+    text-transform: uppercase;
+  }
+
+  /* Display headlines: expanded, tight-leading, negative tracking. */
+  .display {
+    font-variation-settings: "wdth" 112, "wght" 800;
+    letter-spacing: -0.045em;
+    line-height: 0.86;
+    text-transform: uppercase;
+    /* At these sizes a single long word can exceed a narrow viewport.
+       Breaking is only a last resort — normal wrapping still wins. */
+    overflow-wrap: break-word;
+  }
+
+  .label {
+    font-family: "JetBrains Mono", ui-monospace, monospace;
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: #5c5c5c;
+  }
+
+  /* Navigation links.
+     Deliberately NOT the mono label style — at nav size that reads thin
+     and technical, closer to a footnote than a menu. Archivo at a
+     heavier weight and slightly expanded width gives the bar presence
+     and ties it to the display type, while tighter tracking than the
+     .label keeps it readable rather than spaced out. */
+  .nav-link {
+    font-family: "Archivo", system-ui, sans-serif;
+    font-variation-settings: "wdth" 108, "wght" 650;
+    font-size: 12px;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+  }
+
+  @media (min-width: 1280px) {
+    .nav-link {
+      font-size: 13px;
+    }
+  }
+}
+
+@layer utilities {
+  /* Film grain — an inline feTurbulence, so it costs no network request. */
+  .grain::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.22;
+    mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 240 240' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  .edge-fade {
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+}
+
+/* ------------------------------------------------------------------
+   Reduced motion. Animations that convey nothing are removed outright;
+   components that carry meaning switch to a static branch in JS.
+   ------------------------------------------------------------------ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
