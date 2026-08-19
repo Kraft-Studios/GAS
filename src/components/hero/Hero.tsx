@@ -116,7 +116,7 @@ export function Hero() {
   if (reduced) {
     return (
       <section
-        className="relative h-screen w-full overflow-hidden bg-carbon"
+        className="theme-pin-dark relative h-screen w-full overflow-hidden bg-carbon"
         aria-label={GAS.fullName}
       >
         {media}
@@ -134,7 +134,7 @@ export function Hero() {
   }
 
   return (
-    <section aria-label={GAS.fullName} className="relative">
+    <section aria-label={GAS.fullName} className="theme-pin-dark relative">
       <HeroIntro />
 
       <div ref={trackRef} className="relative h-[160vh]">

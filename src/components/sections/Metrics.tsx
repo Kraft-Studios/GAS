@@ -95,13 +95,13 @@ function Counter({
     <div ref={ref} className="flex flex-col items-start gap-5">
       <div className="relative h-24 w-24 md:h-28 md:w-28">
         <svg viewBox="0 0 100 100" className="h-full w-full -rotate-90" aria-hidden>
-          <circle cx="50" cy="50" r={R} fill="none" stroke="#242424" strokeWidth="1" />
+          <circle cx="50" cy="50" r={R} fill="none" stroke="var(--color-line)" strokeWidth="1" />
           <circle
             cx="50"
             cy="50"
             r={R}
             fill="none"
-            stroke="#F2F0EB"
+            stroke="var(--color-bone)"
             strokeWidth="1"
             strokeDasharray={CIRC}
             strokeDashoffset={CIRC * (1 - progress)}

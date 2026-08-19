@@ -33,7 +33,7 @@ export function KultureDrop() {
             />
             <p className="max-w-lg text-base leading-relaxed text-dim md:text-lg">
               Cut for people who stand around cars at six in the morning,
-              not for a lookbook. Heavyweight, boxy, monochrome — the same
+              not for a lookbook. Heavyweight, boxy, monochrome: the same
               rules as everything else we make.
             </p>
 
@@ -43,7 +43,7 @@ export function KultureDrop() {
                 target="_blank"
                 rel="noreferrer"
                 data-cursor="open"
-                className="group relative overflow-hidden border border-bone px-10 py-4 font-mono text-[10px] uppercase tracking-label text-bone transition-colors duration-500 hover:text-black"
+                className="group relative overflow-hidden border border-bone px-10 py-4 font-mono text-[10px] uppercase tracking-label text-bone transition-colors duration-500 hover:text-void"
               >
                 <span
                   aria-hidden
@@ -66,7 +66,7 @@ export function KultureDrop() {
                   2026
                 </p>
                 <p className="mt-6 text-sm leading-relaxed text-dim">
-                  First drop. Limited run, no restock — the way it should
+                  First drop. Limited run, no restock: the way it should
                   be.
                 </p>
               </div>

@@ -58,7 +58,7 @@ export function HeroIntro() {
     <AnimatePresence>
       {visible && (
         <motion.div
-          className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-void"
+          className="theme-pin-dark fixed inset-0 z-[100] flex flex-col items-center justify-center bg-void"
           initial={{ opacity: 1 }}
           exit={{ y: "-100%" }}
           transition={{ duration: 1.1, ease: EASE_SOFT }}
@@ -91,7 +91,7 @@ export function HeroIntro() {
               animate={{ opacity: step >= 2 ? 1 : 0 }}
               transition={{ duration: 0.6, ease: EASE }}
             >
-              EST. {GAS.founded} — {GAS.country.toUpperCase()}
+              EST. {GAS.founded}: {GAS.country.toUpperCase()}
             </motion.p>
           </div>
         </motion.div>

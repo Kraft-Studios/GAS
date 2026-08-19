@@ -15,7 +15,7 @@ export default function NotFound() {
       <Link
         to="/"
         data-cursor="open"
-        className="group relative overflow-hidden border border-bone px-10 py-4 font-mono text-[10px] uppercase tracking-label text-bone transition-colors duration-500 hover:text-black"
+        className="group relative overflow-hidden border border-bone px-10 py-4 font-mono text-[10px] uppercase tracking-label text-bone transition-colors duration-500 hover:text-void"
       >
         <span
           aria-hidden

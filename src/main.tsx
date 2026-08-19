@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { HashRouter } from "react-router-dom";
 import App from "./App";
+import { ThemeProvider } from "./hooks/useTheme";
 import "./styles/index.css";
 
 /* HashRouter so a plain `dist/` drop works on any static host without
@@ -9,8 +10,10 @@ import "./styles/index.css";
    to serve index.html for unknown paths. */
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <HashRouter>
-      <App />
-    </HashRouter>
+    <ThemeProvider>
+      <HashRouter>
+        <App />
+      </HashRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );

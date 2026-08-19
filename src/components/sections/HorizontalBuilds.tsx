@@ -40,7 +40,7 @@ export function HorizontalBuilds() {
     >
       <img
         src={b.image}
-        alt={`${b.title.replace("\n", " ")} — GAS Automotive`}
+        alt={`${b.title.replace("\n", " ")}: GAS Automotive`}
         loading="lazy"
         decoding="async"
         className="absolute inset-0 h-full w-full object-cover opacity-45"
@@ -81,7 +81,7 @@ export function HorizontalBuilds() {
       </div>
 
       {pinned ? (
-        <div ref={containerRef} className="h-screen overflow-hidden">
+        <div ref={containerRef} className="theme-pin-dark h-screen overflow-hidden">
           <div
             ref={trackRef}
             className="flex h-full items-stretch gap-5 px-5 py-16 will-change-transform md:gap-8 md:px-8"
@@ -92,7 +92,7 @@ export function HorizontalBuilds() {
       ) : (
         /* Fallback: an honest, swipeable overflow strip. */
         <div
-          className="flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-16 md:px-8"
+          className="theme-pin-dark flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 pb-16 md:px-8"
           style={{ scrollbarWidth: "none" }}
         >
           {panels.map((panel, i) => (

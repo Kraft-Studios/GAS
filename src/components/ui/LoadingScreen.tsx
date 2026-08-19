@@ -124,7 +124,7 @@ export function LoadingScreen() {
     <AnimatePresence>
       {!done && (
         <motion.div
-          className="fixed inset-0 z-[200] flex flex-col items-center justify-center bg-void"
+          className="theme-pin-dark fixed inset-0 z-[200] flex flex-col items-center justify-center bg-void"
           initial={{ opacity: 1 }}
           exit={reduced ? { opacity: 0 } : { y: "-100%" }}
           transition={{ duration: reduced ? 0.3 : 1, ease: EASE_SOFT }}

@@ -10,7 +10,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="relative grain overflow-hidden border-t border-line bg-void">
+    <footer className="theme-pin-dark relative grain overflow-hidden border-t border-line bg-void">
       {/* oversized wordmark, cropped by the viewport edge */}
       <div className="px-5 pb-10 pt-20 md:px-8 md:pt-28">
         <SplitText
@@ -86,10 +86,10 @@ export function Footer() {
 
       <div className="flex flex-col gap-3 border-t border-line px-5 py-6 sm:flex-row sm:items-center sm:justify-between md:px-8">
         <p className="label">
-          © {year} {GAS.registered} — ALL RIGHTS RESERVED
+          © {year} {GAS.registered}: ALL RIGHTS RESERVED
         </p>
         <p className="label">
-          EST. {GAS.founded} — {GAS.country.toUpperCase()}
+          EST. {GAS.founded}: {GAS.country.toUpperCase()}
         </p>
       </div>
     </footer>

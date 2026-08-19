@@ -66,13 +66,8 @@ export const COORDS = "26.2041° S / 28.0473° E";
 
 export const NAV_LINKS = [
   { to: "/", label: "Home", index: "01" },
-  { to: "/vehicles", label: "Vehicles", index: "02" },
-  { to: "/builds", label: "Builds", index: "03" },
-  { to: "/services", label: "Services", index: "04" },
-  { to: "/about", label: "About", index: "05" },
-  { to: "/contact", label: "Contact", index: "06" },
+  { to: "/builds", label: "Builds", index: "02" },
+  { to: "/services", label: "Services", index: "03" },
+  { to: "/about", label: "About", index: "04" },
+  { to: "/contact", label: "Contact", index: "05" },
 ] as const;
-
-/* Path the hero looks for first. Drop a real model here and the
-   procedural stand-in is replaced with zero code changes. */
-export const HERO_MODEL_PATH = "/models/gas-hero-car.glb";

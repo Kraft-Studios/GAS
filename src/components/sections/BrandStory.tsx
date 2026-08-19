@@ -2,7 +2,7 @@ import { SectionMark } from "@/components/ui/TechLabel";
 import { SplitText } from "@/components/ui/SplitText";
 import { Reveal } from "@/components/ui/Reveal";
 import { GAS } from "@/lib/constants";
-import { FRAMES } from "@/lib/gallery";
+import { ABOUT_PHOTO } from "@/lib/gallery";
 
 /* Short, confident, non-corporate. Three paragraphs, no mission
    statement, no "we are passionate about". */
@@ -16,8 +16,8 @@ export function BrandStory() {
         <div className="lg:col-span-5">
           <div className="relative aspect-[3/4] overflow-hidden bg-surface">
             <img
-              src={FRAMES.editorialTwo}
-              alt="A GAS Automotive shoot at last light"
+              src={ABOUT_PHOTO}
+              alt="Four of the GAS collective at a night meet"
               loading="lazy"
               decoding="async"
               className="h-full w-full object-cover"
@@ -44,7 +44,7 @@ export function BrandStory() {
               <p>
                 That is the whole origin story. No investor, no studio, no
                 plan beyond making the next one better than the last. What
-                grew out of it is a collective — a channel, an archive, and
+                grew out of it is a collective: a channel, an archive, and
                 a set of drives that people plan their month around.
               </p>
             </Reveal>

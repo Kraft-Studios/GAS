@@ -11,9 +11,8 @@ import { LoadingScreen } from "@/components/ui/LoadingScreen";
 import { useLenis } from "@/hooks/useLenis";
 import Home from "@/pages/Home";
 
-/* Secondary routes are split out — the homepage carries the 3D bundle
-   and shouldn't wait on pages nobody has asked for yet. */
-const Vehicles = lazy(() => import("@/pages/Vehicles"));
+/* Secondary routes are split out so the homepage doesn't wait on pages
+   nobody has asked for yet. */
 const Builds = lazy(() => import("@/pages/Builds"));
 const Services = lazy(() => import("@/pages/Services"));
 const About = lazy(() => import("@/pages/About"));
@@ -25,11 +24,11 @@ export default function App() {
   useLenis();
 
   return (
-    <div className="min-h-screen bg-carbon text-[#C9C7C2]">
+    <div className="min-h-screen bg-carbon text-[var(--color-body)] transition-colors duration-500">
       {/* Keyboard users get out of the nav without tabbing the whole menu. */}
       <a
         href="#main"
-        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-bone focus:px-4 focus:py-2 focus:text-sm focus:text-black"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[200] focus:bg-bone focus:px-4 focus:py-2 focus:text-sm focus:text-void"
       >
         Skip to content
       </a>
@@ -55,7 +54,6 @@ export default function App() {
             />
             {(
               [
-                ["/vehicles", Vehicles],
                 ["/builds", Builds],
                 ["/services", Services],
                 ["/about", About],

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
 import { NAV_LINKS, GAS } from "@/lib/constants";
 import { EASE, EASE_SOFT } from "@/animations/easing";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useTheme } from "@/hooks/useTheme";
 import { MobileMenu } from "./MobileMenu";
 
 /* ==================================================================
@@ -15,6 +17,11 @@ import { MobileMenu } from "./MobileMenu";
    reports itself via IntersectionObserver as it passes under the bar,
    and the bar inverts. That is cheaper and far more reliable than
    sampling pixels from the canvas, and it works over the 3D hero too.
+
+   Once scrolled, the bar also inverts against the site theme rather
+   than matching it — dark theme gets a white bar, light theme gets a
+   dark grey one — so the nav always reads as a distinct control
+   surface instead of blending into whatever chapter is underneath it.
    ================================================================== */
 
 export function Navigation() {
@@ -23,6 +30,7 @@ export function Navigation() {
   const [menuOpen, setMenuOpen] = useState(false);
   const { pathname } = useLocation();
   const reduced = useReducedMotion();
+  const { theme, toggle: toggleTheme } = useTheme();
 
   /* Condense the bar once the user has left the top of the page. */
   useEffect(() => {
@@ -57,16 +65,52 @@ export function Navigation() {
   /* Close the menu on navigation. */
   useEffect(() => setMenuOpen(false), [pathname]);
 
-  const fg = onLight ? "text-black" : "text-bone";
+  /* Bar background/text only inverts against the theme once it is
+     actually opaque (scrolled, menu closed) — at the top of the page it
+     stays transparent and keeps the existing onLight-driven scheme, which
+     is what sits over the film/photo mastheads. */
+  const barOpaque = scrolled && !menuOpen;
+  const whiteBar = barOpaque && theme === "dark";
+  const greyBar = barOpaque && theme === "light";
+
+  const fg = whiteBar
+    ? "text-black"
+    : greyBar
+      ? "text-white"
+      : onLight
+        ? "text-black"
+        : "text-bone";
+
+  const linkActive = whiteBar
+    ? "text-black"
+    : greyBar
+      ? "text-white"
+      : onLight
+        ? "text-black"
+        : "text-bone";
+  const linkIdle = whiteBar
+    ? "text-black/60 hover:text-black"
+    : greyBar
+      ? "text-white/65 hover:text-white"
+      : onLight
+        ? "text-black/60 hover:text-black"
+        : "text-bone/65 hover:text-bone";
+  const accentBg = whiteBar
+    ? "bg-black"
+    : greyBar
+      ? "bg-white"
+      : onLight
+        ? "bg-black"
+        : "bg-bone";
 
   return (
     <>
       <motion.header
         className={`fixed inset-x-0 top-0 z-[95] transition-colors duration-500 ${
-          scrolled && !menuOpen
-            ? onLight
-              ? "bg-bone/85 backdrop-blur-md"
-              : "bg-carbon/70 backdrop-blur-md"
+          barOpaque
+            ? whiteBar
+              ? "bg-white/55 backdrop-blur-md"
+              : "bg-neutral-700/55 backdrop-blur-md"
             : "bg-transparent"
         }`}
         initial={reduced ? false : { y: -40, opacity: 0 }}
@@ -81,7 +125,7 @@ export function Navigation() {
           <Link
             to="/"
             data-cursor="open"
-            aria-label={`${GAS.fullName} — home`}
+            aria-label={`${GAS.fullName}: home`}
             className={`wordmark text-sm transition-colors duration-500 md:text-base ${
               menuOpen ? "text-bone" : fg
             }`}
@@ -99,13 +143,7 @@ export function Navigation() {
                   data-cursor="open"
                   className={({ isActive }) =>
                     `nav-link group relative block transition-colors duration-300 ${
-                      onLight
-                        ? isActive
-                          ? "text-black"
-                          : "text-black/60 hover:text-black"
-                        : isActive
-                          ? "text-bone"
-                          : "text-bone/65 hover:text-bone"
+                      isActive ? linkActive : linkIdle
                     }`
                   }
                 >
@@ -115,9 +153,7 @@ export function Navigation() {
                       {/* underline grows from the left on hover/active */}
                       <span
                         aria-hidden
-                        className={`absolute -bottom-1.5 left-0 h-px origin-left transition-transform duration-500 ease-expo ${
-                          onLight ? "bg-black" : "bg-bone"
-                        } ${
+                        className={`absolute -bottom-1.5 left-0 h-px origin-left transition-transform duration-500 ease-expo ${accentBg} ${
                           isActive
                             ? "w-full scale-x-100"
                             : "w-full scale-x-0 group-hover:scale-x-100"
@@ -130,36 +166,59 @@ export function Navigation() {
             ))}
           </ul>
 
-          {/* ---------------- menu control
-               Icon only. With the visible label gone, aria-label is now
-               the button's entire accessible name — without it this is
-               an unlabelled button to a screen reader. */}
-          <button
-            type="button"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-expanded={menuOpen}
-            aria-controls="gas-menu"
-            aria-label={menuOpen ? "Close menu" : "Open menu"}
-            data-cursor={menuOpen ? "open" : "explore"}
-            className="flex items-center p-1"
-          >
-            <span className="relative flex h-4 w-7 flex-col justify-between">
-              {[0, 1].map((i) => (
-                <motion.span
-                  key={i}
-                  className={`block h-px w-full origin-center transition-colors duration-500 ${
-                    menuOpen ? "bg-bone" : onLight ? "bg-black" : "bg-bone"
-                  }`}
-                  animate={
-                    menuOpen
-                      ? { rotate: i === 0 ? 45 : -45, y: i === 0 ? 7.5 : -7.5 }
-                      : { rotate: 0, y: 0 }
-                  }
-                  transition={{ duration: 0.5, ease: EASE_SOFT }}
-                />
-              ))}
-            </span>
-          </button>
+          <div className="flex items-center gap-4 md:gap-6">
+            {/* ---------------- theme toggle
+                 Icon-only, so the label is entirely aria-label — same
+                 rule as the menu control beside it. */}
+            <button
+              type="button"
+              onClick={toggleTheme}
+              aria-label={
+                theme === "dark" ? "Switch to light mode" : "Switch to dark mode"
+              }
+              data-cursor="explore"
+              className={`flex items-center p-1 transition-colors duration-500 ${
+                menuOpen ? "text-bone" : fg
+              }`}
+            >
+              {theme === "dark" ? (
+                <Sun className="h-4 w-4" strokeWidth={1.5} />
+              ) : (
+                <Moon className="h-4 w-4" strokeWidth={1.5} />
+              )}
+            </button>
+
+            {/* ---------------- menu control
+                 Icon only. With the visible label gone, aria-label is now
+                 the button's entire accessible name — without it this is
+                 an unlabelled button to a screen reader. */}
+            <button
+              type="button"
+              onClick={() => setMenuOpen((v) => !v)}
+              aria-expanded={menuOpen}
+              aria-controls="gas-menu"
+              aria-label={menuOpen ? "Close menu" : "Open menu"}
+              data-cursor={menuOpen ? "open" : "explore"}
+              className="flex items-center p-1"
+            >
+              <span className="relative flex h-4 w-7 flex-col justify-between">
+                {[0, 1].map((i) => (
+                  <motion.span
+                    key={i}
+                    className={`block h-px w-full origin-center transition-colors duration-500 ${
+                      menuOpen ? "bg-bone" : accentBg
+                    }`}
+                    animate={
+                      menuOpen
+                        ? { rotate: i === 0 ? 45 : -45, y: i === 0 ? 7.5 : -7.5 }
+                        : { rotate: 0, y: 0 }
+                    }
+                    transition={{ duration: 0.5, ease: EASE_SOFT }}
+                  />
+                ))}
+              </span>
+            </button>
+          </div>
         </nav>
       </motion.header>
 

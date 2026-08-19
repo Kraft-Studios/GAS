@@ -52,7 +52,7 @@ export function Gallery({ images = GALLERY, limit }: Props) {
           <p className="label">{shown.length} FRAMES</p>
         </div>
 
-        <div className="columns-2 gap-3 md:columns-3 md:gap-5 xl:columns-4">
+        <div className="theme-pin-dark columns-2 gap-3 md:columns-3 md:gap-5 xl:columns-4">
           {shown.map((src, i) => (
             <button
               key={src}
@@ -124,7 +124,7 @@ function Lightbox({
       role="dialog"
       aria-modal="true"
       aria-label={`Frame ${index + 1} of ${images.length}`}
-      className="fixed inset-0 z-[120] flex items-center justify-center bg-void/97 p-4 backdrop-blur-sm md:p-10"
+      className="theme-pin-dark fixed inset-0 z-[120] flex items-center justify-center bg-void/97 p-4 backdrop-blur-sm md:p-10"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}

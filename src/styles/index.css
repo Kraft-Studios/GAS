@@ -3,31 +3,86 @@
 @tailwind utilities;
 
 @layer base {
+  /* ================================================================
+     THEME TOKENS
+     ----------------------------------------------------------------
+     Dark is the brand default and the values below are identical to
+     the literal hex this file used to hard-code. Light is a genuine
+     second palette, not an inverted filter — warm off-whites and
+     near-blacks that echo the same "bone" warmth the dark palette
+     already uses, toggled from the nav bar (useTheme) via a
+     `data-theme` attribute on <html>. No attribute (or `dark`) keeps
+     the brand default; `light` swaps every token below it.
+     ================================================================ */
   :root {
+    color-scheme: dark;
+
+    --color-void: #000000;
+    --color-carbon: #080808;
+    --color-surface: #101010;
+    --color-elevated: #181818;
+    --color-line: #242424;
+    --color-muted: #5c5c5c;
+    --color-dim: #8a8a8a;
+    --color-bone: #f2f0eb;
+    --color-body: #c9c7c2;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+
+    --color-void: #ffffff;
+    --color-carbon: #f3f1ec;
+    --color-surface: #eae7df;
+    --color-elevated: #e0dcd1;
+    --color-line: #d2cdbf;
+    --color-muted: #8d8875;
+    --color-dim: #58554a;
+    --color-bone: #15130f;
+    --color-body: #2b2a25;
+  }
+
+  /* Real photography with a scrim built for light-on-dark text — the
+     hero, the page mastheads, the cinematic breaks, the gallery. These
+     stay on the dark cinematic palette regardless of site theme; a
+     photo's overlay and caption contrast were designed once, not
+     twice, and a light-mode toggle for page chrome shouldn't relight
+     a real photograph. */
+  .theme-pin-dark {
+    --color-void: #000000;
+    --color-carbon: #080808;
+    --color-surface: #101010;
+    --color-elevated: #181818;
+    --color-line: #242424;
+    --color-muted: #5c5c5c;
+    --color-dim: #8a8a8a;
+    --color-bone: #f2f0eb;
+    --color-body: #c9c7c2;
     color-scheme: dark;
   }
 
   html {
-    background: #080808;
+    background: var(--color-carbon);
     /* Lenis drives scrolling; native smooth would fight it. */
     scroll-behavior: auto;
   }
 
   body {
     margin: 0;
-    background: #080808;
-    color: #c9c7c2;
+    background: var(--color-carbon);
+    color: var(--color-body);
     font-family: "Archivo", system-ui, sans-serif;
     font-variation-settings: "wdth" 100;
     -webkit-font-smoothing: antialiased;
     /* Guards the horizontal-scroll section and oversized display type. */
     overflow-x: hidden;
     overscroll-behavior-y: none;
+    transition: background-color 0.4s ease, color 0.4s ease;
   }
 
   ::selection {
-    background: #f2f0eb;
-    color: #080808;
+    background: var(--color-bone);
+    color: var(--color-carbon);
   }
 
   ::-webkit-scrollbar {
@@ -37,7 +92,7 @@
 
   /* Visible focus on every interactive element — never removed, only styled. */
   :where(a, button, input, textarea, select, [tabindex]):focus-visible {
-    outline: 1px solid #f2f0eb;
+    outline: 1px solid var(--color-bone);
     outline-offset: 3px;
   }
 
@@ -74,7 +129,7 @@
     font-size: 10px;
     letter-spacing: 0.28em;
     text-transform: uppercase;
-    color: #5c5c5c;
+    color: var(--color-muted);
   }
 
   /* Navigation links.

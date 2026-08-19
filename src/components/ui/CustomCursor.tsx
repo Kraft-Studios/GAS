@@ -76,7 +76,7 @@ export function CustomCursor() {
       animate={{
         width: active ? 34 : 8,
         height: active ? 34 : 8,
-        backgroundColor: active ? "transparent" : "#F2F0EB",
+        backgroundColor: active ? "transparent" : "var(--color-bone)",
         scale: pressed ? 0.82 : 1,
       }}
       transition={{ type: "spring", stiffness: 380, damping: 30 }}

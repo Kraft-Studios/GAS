@@ -1,4 +1,4 @@
-import { GALLERY } from "@/lib/gallery";
+import { FEED } from "@/lib/gallery";
 
 /* ------------------------------------------------------------------
    Panels for the horizontal-scroll section. Vertical scroll drives
@@ -25,7 +25,7 @@ export const BUILDS: Build[] = [
     kicker: "SERIES",
     title: "COLD\nSTART",
     body: "Six in the morning, single microphone, no music over the top. The first turn of the key is the whole video. It is the most watched thing we make and it took the least equipment.",
-    image: GALLERY[4] ?? "",
+    image: FEED.m2Rear,
     date: "ONGOING",
   },
   {
@@ -34,7 +34,7 @@ export const BUILDS: Build[] = [
     kicker: "EVENT",
     title: "TAKE\nOVER",
     body: "One location, one evening, however many cars fit. No entry fee, no trophies, no judging. Park it, open it, talk to somebody about theirs.",
-    image: GALLERY[7] ?? "",
+    image: FEED.lineup,
     date: "QUARTERLY",
   },
   {
@@ -43,7 +43,7 @@ export const BUILDS: Build[] = [
     kicker: "EVENT",
     title: "GAS\nDRIVE",
     body: "A route, a convoy and three camera cars. Two editions run so far. The point is the road between the stops, which is the part nobody films properly.",
-    image: GALLERY[10] ?? "",
+    image: FEED.skidpan,
     date: "01 & 02",
   },
   {
@@ -51,8 +51,8 @@ export const BUILDS: Build[] = [
     index: "04",
     kicker: "COMMUNITY",
     title: "MEM\nBERS",
-    body: "The people whose cars keep showing up. Not a paid tier and not a club with rules — just the names we call first when something is being planned.",
-    image: GALLERY[0] ?? "",
+    body: "The people whose cars keep showing up. Not a paid tier and not a club with rules: just the names we call first when something is being planned.",
+    image: FEED.meetSet,
     date: "BY INVITE",
   },
 ];

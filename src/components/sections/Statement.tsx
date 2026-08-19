@@ -25,7 +25,7 @@ export function Statement() {
           <div className="md:col-span-5 md:col-start-7">
             <p className="text-base leading-relaxed text-dim md:text-lg">
               {GAS.fullName} started in {GAS.founded} with one camera and a
-              group chat. It is now a collective — film, photography,
+              group chat. It is now a collective: film, photography,
               features and the drives that bring everyone together.
             </p>
             <Reveal delay={0.1}>

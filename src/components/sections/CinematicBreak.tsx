@@ -2,21 +2,22 @@ import { useRef } from "react";
 import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import { SCROLL_SPRING } from "@/animations/easing";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
-import { useIsMobile } from "@/hooks/useMediaQuery";
 
 /* ==================================================================
-   Full-bleed cinematic break.
+   Full-bleed cinematic break — the same sticky-scroll-zoom rig as the
+   homepage hero and the photo mastheads (PageHeader).
    ------------------------------------------------------------------
-   Takes a video when one exists, and a still when one doesn't.
+   A tall track holds a `sticky top-0 h-screen` frame: the media sits
+   static and fills the screen at rest, then pushes in as the reader
+   scrolls through the track. Nothing moves until the reader scrolls —
+   this is the "stand static, then zoom on scroll" treatment, not a
+   parallax drift.
 
-   NO VIDEO ASSET SHIPS WITH THIS REPO. Drop an .mp4 in /public and
-   pass `video="/your-file.mp4"` to switch this section to film. Until
-   then it runs the still treatment — scale + parallax + a mask wipe —
-   which is a real composition, not a grey box.
-
-   Scroll-scrubbing a video (seeking on every scroll frame) is only
-   enabled on desktop: mobile Safari cannot seek smoothly and produces
-   a stuttering mess, so touch gets straightforward autoplay instead.
+   Takes a video when one exists, and a still when one doesn't. The
+   homepage's "SHOT BY THE COLLECTIVE" break uses public/gas-collective.mp4
+   (originally "spinning m4s.mp4" — re-encoded, see PLACEHOLDERS.md for
+   why). Plays on its own — autoplay, muted, loop — the same as the
+   homepage hero's background video.
    ================================================================== */
 
 type Props = {
@@ -27,76 +28,70 @@ type Props = {
 };
 
 export function CinematicBreak({ image, video, caption, statement }: Props) {
-  const ref = useRef<HTMLElement>(null);
-  const videoRef = useRef<HTMLVideoElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
-  const isMobile = useIsMobile();
 
   const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
+    target: trackRef,
+    offset: ["start start", "end end"],
   });
   const p = useSpring(scrollYProgress, SCROLL_SPRING);
 
-  /* Media pushes in slightly and drifts — the section breathes as it
-     crosses the viewport instead of sitting flat. */
-  const scale = useTransform(p, [0, 0.5, 1], [1.14, 1, 1.14]);
-  const y = useTransform(p, [0, 1], ["-6%", "6%"]);
-  const textY = useTransform(p, [0, 1], ["40%", "-40%"]);
-  const overlay = useTransform(p, [0, 0.5, 1], [0.8, 0.35, 0.8]);
-
-  const scrubbable = Boolean(video) && !isMobile && !reduced;
+  /* Static at rest, then a steady push through the track. */
+  const scale = useTransform(p, [0, 1], [1, 1.45]);
+  const overlay = useTransform(p, [0, 1], [0.45, 0.75]);
+  const textY = useTransform(p, [0, 1], ["0%", "-16%"]);
 
   return (
-    <section
-      ref={ref}
-      aria-label={caption}
-      className="relative grain h-[70vh] w-full overflow-hidden bg-void md:h-screen"
-    >
-      <motion.div
-        className="absolute inset-0"
-        style={reduced ? undefined : { scale, y }}
+    <div ref={trackRef} className="theme-pin-dark relative h-[170vh]">
+      <section
+        aria-label={caption}
+        className="grain sticky top-0 h-screen w-full overflow-hidden bg-void"
       >
-        {video ? (
-          <video
-            ref={videoRef}
-            className="absolute inset-0 h-full w-full object-cover"
-            src={video}
-            poster={image}
-            autoPlay={!scrubbable}
-            loop={!scrubbable}
-            muted
-            playsInline
-            preload="metadata"
-            aria-hidden
-          />
-        ) : (
-          <img
-            src={image}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            decoding="async"
-            className="absolute inset-0 h-full w-full object-cover"
-          />
-        )}
-      </motion.div>
+        <motion.div
+          className="absolute inset-0"
+          style={reduced ? undefined : { scale }}
+        >
+          {video ? (
+            <video
+              className="absolute inset-0 h-full w-full object-cover"
+              src={video}
+              poster={image}
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              aria-hidden
+            />
+          ) : (
+            <img
+              src={image}
+              alt=""
+              aria-hidden
+              loading="lazy"
+              decoding="async"
+              className="absolute inset-0 h-full w-full object-cover"
+            />
+          )}
+        </motion.div>
 
-      <motion.div
-        aria-hidden
-        className="absolute inset-0 bg-void"
-        style={reduced ? { opacity: 0.55 } : { opacity: overlay }}
-      />
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 bg-void"
+          style={reduced ? { opacity: 0.55 } : { opacity: overlay }}
+        />
 
-      <motion.div
-        className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-        style={reduced ? undefined : { y: textY }}
-      >
-        <p className="label mb-5">{caption}</p>
-        <p className="display max-w-[15ch] text-[11vw] text-bone md:text-[6vw]">
-          {statement}
-        </p>
-      </motion.div>
-    </section>
+        <motion.div
+          className="absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
+          style={reduced ? undefined : { y: textY }}
+        >
+          <p className="label mb-5">{caption}</p>
+          <p className="display max-w-[15ch] text-[11vw] text-bone md:text-[6vw]">
+            {statement}
+          </p>
+        </motion.div>
+      </section>
+    </div>
   );
 }

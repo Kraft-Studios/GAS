@@ -4,14 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        void: "#000000",
-        carbon: "#080808",
-        surface: "#101010",
-        elevated: "#181818",
-        line: "#242424",
-        muted: "#5C5C5C",
-        dim: "#8A8A8A",
-        bone: "#F2F0EB",
+        /* Point at CSS custom properties, not literal hex, so the whole
+           palette can flip between the dark (default) and light theme —
+           see :root / [data-theme="light"] in styles/index.css. */
+        void: "var(--color-void)",
+        carbon: "var(--color-carbon)",
+        surface: "var(--color-surface)",
+        elevated: "var(--color-elevated)",
+        line: "var(--color-line)",
+        muted: "var(--color-muted)",
+        dim: "var(--color-dim)",
+        bone: "var(--color-bone)",
       },
       fontFamily: {
         /* Archivo carries a width axis, which is how the wide-tracked

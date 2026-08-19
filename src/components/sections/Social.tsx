@@ -29,7 +29,7 @@ export function Social() {
   return (
     <section
       aria-labelledby="social-heading"
-      className="relative bg-void px-5 py-24 md:px-8 md:py-32"
+      className="theme-pin-dark relative bg-void px-5 py-24 md:px-8 md:py-32"
     >
       <div className="mx-auto max-w-[1600px]">
         <SectionMark index="09" label="SOCIAL" className="mb-10" />

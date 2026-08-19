@@ -175,7 +175,7 @@ export function ContactForm() {
                 </option>
                 {SERVICES.map((s) => (
                   <option key={s.slug} value={s.title} className="bg-void">
-                    {s.title} — {s.accent}
+                    {s.title}: {s.accent}
                   </option>
                 ))}
                 <option value="Other" className="bg-void">
@@ -219,7 +219,7 @@ export function ContactForm() {
               type="submit"
               disabled={status === "sending"}
               data-cursor="open"
-              className="group relative overflow-hidden border border-bone px-10 py-4 font-mono text-[10px] uppercase tracking-label text-bone transition-colors duration-500 hover:text-black disabled:opacity-50"
+              className="group relative overflow-hidden border border-bone px-10 py-4 font-mono text-[10px] uppercase tracking-label text-bone transition-colors duration-500 hover:text-void disabled:opacity-50"
             >
               <span
                 aria-hidden
@@ -237,7 +237,7 @@ export function ContactForm() {
             )}
             {status === "error" && (
               <p className="font-mono text-[10px] uppercase tracking-label text-red-400">
-                Didn't send — try again or email us directly.
+                Didn't send: try again or email us directly.
               </p>
             )}
           </div>

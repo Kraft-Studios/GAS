@@ -86,10 +86,10 @@ function VehicleEntry({
             oversized display type below would otherwise force the track
             wider than the viewport. */}
         <div className="min-w-0 md:col-span-7 md:[direction:ltr]">
-          <div className="relative aspect-[4/5] overflow-hidden bg-surface sm:aspect-[3/2]">
+          <div className="theme-pin-dark relative aspect-[4/5] overflow-hidden bg-surface sm:aspect-[3/2]">
             <motion.img
               src={vehicle.image}
-              alt={`${vehicle.make} ${vehicle.model} — shot by GAS Automotive`}
+              alt={`${vehicle.make} ${vehicle.model}: shot by GAS Automotive`}
               loading="lazy"
               decoding="async"
               style={reduced ? undefined : { y: imageY }}
@@ -99,7 +99,7 @@ function VehicleEntry({
 
             {/* chassis code, bottom-left of the frame */}
             <span className="label absolute bottom-4 left-4 text-bone/80">
-              {vehicle.chassis} — {vehicle.year}
+              {vehicle.chassis}: {vehicle.year}
             </span>
           </div>
         </div>

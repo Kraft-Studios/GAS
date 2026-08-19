@@ -1,4 +1,4 @@
-import { GALLERY } from "@/lib/gallery";
+import { FEED, GALLERY } from "@/lib/gallery";
 import { GAS } from "@/lib/constants";
 
 /* ------------------------------------------------------------------
@@ -23,14 +23,14 @@ export type SocialPost = {
 
 /* PLACEHOLDER — captions written for layout, images are real feed exports. */
 export const PLACEHOLDER_FEED: SocialPost[] = [
-  { id: "p1", media_type: "CAROUSEL_ALBUM", caption: "GAS DRIVE 02 — the whole convoy, one frame.", permalink: GAS.instagram, media_url: GALLERY[0] ?? "" },
-  { id: "p2", media_type: "VIDEO", caption: "COLD START — S55, no filter on the audio.", permalink: GAS.instagram, media_url: GALLERY[1] ?? "" },
-  { id: "p3", media_type: "IMAGE", caption: "Last light, last frame.", permalink: GAS.instagram, media_url: GALLERY[2] ?? "" },
-  { id: "p4", media_type: "CAROUSEL_ALBUM", caption: "TAKEOVER — thanks to everyone who pulled up.", permalink: GAS.instagram, media_url: GALLERY[3] ?? "" },
-  { id: "p5", media_type: "IMAGE", caption: "Four doors. No apology.", permalink: GAS.instagram, media_url: GALLERY[4] ?? "" },
-  { id: "p6", media_type: "VIDEO", caption: "Rolling shot from the drive.", permalink: GAS.instagram, media_url: GALLERY[5] ?? "" },
-  { id: "p7", media_type: "IMAGE", caption: "Detail work.", permalink: GAS.instagram, media_url: GALLERY[6] ?? "" },
-  { id: "p8", media_type: "IMAGE", caption: "Warehouse wall, golden hour, done.", permalink: GAS.instagram, media_url: GALLERY[7] ?? "" },
+  { id: "p1", media_type: "CAROUSEL_ALBUM", caption: "GAS DRIVE 02: the whole convoy, one frame.", permalink: GAS.instagram, media_url: FEED.m3Paving },
+  { id: "p2", media_type: "VIDEO", caption: "COLD START: S55, no filter on the audio.", permalink: GAS.instagram, media_url: FEED.m2Detail },
+  { id: "p3", media_type: "IMAGE", caption: "Last light, last frame.", permalink: GAS.instagram, media_url: FEED.porsche997 },
+  { id: "p4", media_type: "CAROUSEL_ALBUM", caption: "TAKEOVER: thanks to everyone who pulled up.", permalink: GAS.instagram, media_url: GALLERY[0] ?? "" },
+  { id: "p5", media_type: "IMAGE", caption: "Four doors. No apology.", permalink: GAS.instagram, media_url: FEED.m3Wash },
+  { id: "p6", media_type: "VIDEO", caption: "Rolling shot from the drive.", permalink: GAS.instagram, media_url: GALLERY[1] ?? "" },
+  { id: "p7", media_type: "IMAGE", caption: "Detail work.", permalink: GAS.instagram, media_url: FEED.m4Wheel },
+  { id: "p8", media_type: "IMAGE", caption: "Warehouse wall, golden hour, done.", permalink: GAS.instagram, media_url: FEED.m2White },
 ];
 
 export async function fetchFeed(): Promise<SocialPost[]> {

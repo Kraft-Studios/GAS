@@ -95,7 +95,6 @@ that is actually on screen rather than a hidden one.
   <Lighting />
   <CameraRig />         // scroll -> camera keyframes
   <VehicleModel />      // GLB if present, procedural stand-in otherwise
-  <VehicleHotspots />
 </VehicleScene>
 ```
 
@@ -115,10 +114,11 @@ identically. That damping is what reads as camera weight.
 
 ## Performance
 
-- Three scenes share one page. Each **defers creating its WebGL context
-  until first approached**, and **suspends its render loop when
-  off-screen** (`frameloop="never"`). Browsers cap contexts around 16 and
-  each costs GPU memory whether it draws or not.
+- The one remaining 3D scene (the configurator) **defers creating its
+  WebGL context until first approached**, and **suspends its render loop
+  when off-screen** (`frameloop="never"`). Browsers cap contexts around
+  16 and each costs GPU memory whether it draws or not — the guard stays
+  in `VehicleScene` so adding scenes back is safe by default.
 - `useDevicePerformance` picks a tier from `hardwareConcurrency` /
   `deviceMemory` / viewport and scales DPR, shadows, antialiasing and
   environment resolution. Tiers only ever reduce work — **all content
@@ -126,9 +126,9 @@ identically. That damping is what reads as camera weight.
 - The environment map is built from Drei `Lightformer`s rather than a
   CDN HDRI: no network dependency, nothing to block first paint.
 - **Three is off the initial load entirely.** The hero is film, so
-  nothing above the fold needs it. Both 3D sections are `React.lazy`, and
+  nothing above the fold needs it. The configurator is `React.lazy`, and
   the Three chunk (~1.0 MB, ~282 KB gzipped) is fetched only once the
-  reader scrolls toward one.
+  reader scrolls toward it.
 
   Note the subtlety: listing `three` in `manualChunks` *undoes* this.
   Vite emits a `<link rel="modulepreload">` for every declared manual
@@ -153,9 +153,6 @@ is now the largest single asset on the page.
   close, Escape closes, background scroll locked.
 - Scroll locking is **refcounted** (`src/lib/scrollLock.ts`) so
   overlapping overlays can't unlock the page out from under each other.
-- Hotspots are real `<button>`s rendered through Drei's `<Html>`, so they
-  are focusable and announced. There is also a text index below the
-  canvas — the 3D scene is never the only route to that content.
 - Form: real labels, `aria-invalid` + `aria-describedby` on errors, live
   region for submit state, focus moved to the first invalid field.
 - `prefers-reduced-motion` switches components to **separate static
@@ -186,7 +183,7 @@ Treated as a distinct composition, not a narrow desktop:
 src/
   components/{navigation,hero,vehicles,services,gallery,sections,ui}/
   three/{VehicleScene,VehicleModel,CameraRig,Environment,
-         Hotspots,HotspotCamera,VehicleConfigurator}.tsx
+         VehicleConfigurator}.tsx
   animations/{easing,scroll}.ts
   data/{vehicles,services,builds,social}.ts
   hooks/{useLenis,useMediaQuery,useReducedMotion,useDevicePerformance}.ts

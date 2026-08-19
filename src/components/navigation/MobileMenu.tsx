@@ -1,9 +1,11 @@
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import { Moon, Sun } from "lucide-react";
 import { NAV_LINKS, GAS, COORDS } from "@/lib/constants";
 import { EASE, EASE_SOFT } from "@/animations/easing";
 import { useReducedMotion } from "@/hooks/useReducedMotion";
+import { useTheme } from "@/hooks/useTheme";
 import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 
 /* ==================================================================
@@ -20,6 +22,7 @@ import { lockScroll, unlockScroll } from "@/lib/scrollLock";
 export function MobileMenu({ onClose }: { onClose: () => void }) {
   const panelRef = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
+  const { theme, toggle: toggleTheme } = useTheme();
 
   useEffect(() => {
     const previouslyFocused = document.activeElement as HTMLElement | null;
@@ -137,7 +140,22 @@ export function MobileMenu({ onClose }: { onClose: () => void }) {
             </a>
           ))}
         </div>
-        <span className="label">{COORDS}</span>
+        <div className="flex items-center gap-6">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            data-cursor="explore"
+            className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-label text-dim transition-colors hover:text-bone"
+          >
+            {theme === "dark" ? (
+              <Sun className="h-3.5 w-3.5" strokeWidth={1.5} />
+            ) : (
+              <Moon className="h-3.5 w-3.5" strokeWidth={1.5} />
+            )}
+            {theme === "dark" ? "Light mode" : "Dark mode"}
+          </button>
+          <span className="label">{COORDS}</span>
+        </div>
       </motion.div>
     </motion.div>
   );

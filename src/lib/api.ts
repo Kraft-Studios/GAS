@@ -31,7 +31,7 @@ export function validateEnquiry(data: Enquiry): EnquiryErrors {
   if (!data.service) errors.service = "Pick what you're after.";
 
   if (data.message.trim().length < 10)
-    errors.message = "Give us a bit more — ten characters minimum.";
+    errors.message = "Give us a bit more: ten characters minimum.";
 
   return errors;
 }

@@ -1,4 +1,4 @@
-import { GALLERY, VEHICLE_PHOTOS } from "@/lib/gallery";
+import { NEW_PHOTOS, VEHICLE_PHOTOS } from "@/lib/gallery";
 
 /* ------------------------------------------------------------------
    THE COLLECTION — machines GAS has put on film.
@@ -49,8 +49,12 @@ export const VEHICLES: Vehicle[] = [
     owner: "Owner TBC",
     feature: "GAS DRIVE 01",
     headline: "THE LAST SMALL ONE",
-    body: "Short wheelbase, long bonnet, an S55 that never asked permission. The M2 Competition is the last time BMW built something this compact and this angry — and it is still the car the meet forms a circle around.",
-    image: VEHICLE_PHOTOS.m2,
+    body: "Short wheelbase, long bonnet, an S55 that never asked permission. The M2 Competition is the last time BMW built something this compact and this angry: and it is still the car the meet forms a circle around.",
+    /* NEW_PHOTOS.m2Garage (newM2.jpeg) — this was, for one round, on the
+       M4 card by mistake. It is a real M2 photo, so this is its correct
+       home. VEHICLE_PHOTOS.m2 (the original M2 photo this replaced) is
+       unused here now but still lives in the gallery/archive. */
+    image: NEW_PHOTOS.m2Garage,
     specs: [
       { label: "Power", value: "302", unit: "kW" },
       { label: "Torque", value: "550", unit: "Nm" },
@@ -87,7 +91,9 @@ export const VEHICLES: Vehicle[] = [
     owner: "Owner TBC",
     feature: "GAS DRIVE 02",
     headline: "THE ONE WITH SOMETHING TO PROVE",
-    body: "Same S58 heart as the M3, wrapped in two doors and a grille everyone still has an opinion about. Shot in the paddock between runs — this one spends more time at the track than in front of a camera.",
+    body: "Same S58 heart as the M3, wrapped in two doors and a grille everyone still has an opinion about. Shot in the paddock between runs: this one spends more time at the track than in front of a camera.",
+    /* Reverted: this briefly showed NEW_PHOTOS.m2Garage (a real M2
+       photo, wrong car). Back to the actual M4 Competition photo. */
     image: VEHICLE_PHOTOS.m4,
     specs: [
       { label: "Power", value: "375", unit: "kW" },
@@ -107,62 +113,16 @@ export const VEHICLES: Vehicle[] = [
     feature: "COLD START",
     headline: "QUIET UNTIL IT ISN'T",
     body: "Four doors, a boot, and enough torque to rearrange your understanding of a sedan. The COLD START series exists because this is the sound people came for.",
-    image: GALLERY[4] ?? "",
+    /* Was FEED.m3Wash — a blue M3 photo, the wrong car entirely; that
+       was a placeholder left in by mistake, not a deliberate choice.
+       NEW_PHOTOS.m5Detail (newm5.jpeg) is the real fix: an M5 CS detail
+       collage, badge visible, on GAS's own plate. */
+    image: NEW_PHOTOS.m5Detail,
     specs: [
       { label: "Power", value: "460", unit: "kW" },
       { label: "Torque", value: "750", unit: "Nm" },
       { label: "0–100", value: "3.3", unit: "s" },
       { label: "Top speed", value: "305", unit: "km/h" },
     ],
-  },
-];
-
-/* Hotspots for the interactive exploration scene. Positions are in the
-   model's local space — they travel with whatever GLB is loaded. */
-export type Hotspot = {
-  id: string;
-  title: string;
-  spec: string;
-  /* [x, y, z] in model space. */
-  position: [number, number, number];
-  /* Where the camera parks when this hotspot is opened. */
-  camera: [number, number, number];
-};
-
-export const HOTSPOTS: Hotspot[] = [
-  {
-    id: "front",
-    title: "FRONT SPLITTER",
-    spec: "CARBON — HAND-LAID — TRACK PROFILE",
-    position: [0, -0.2, 2.55],
-    camera: [1.9, 0.45, 4.9],
-  },
-  {
-    id: "wheels",
-    title: "FORGED WHEELS",
-    spec: '19" — LIGHTWEIGHT ALLOY — PRECISION MACHINED',
-    position: [1.06, -0.02, 1.45],
-    camera: [3.4, 0.15, 2.5],
-  },
-  {
-    id: "brakes",
-    title: "BRAKE PACKAGE",
-    spec: "6-PISTON — 380MM — TWO-PIECE FLOATING",
-    position: [1.06, -0.02, -1.45],
-    camera: [3.3, 0.0, -2.2],
-  },
-  {
-    id: "exhaust",
-    title: "TITANIUM EXHAUST",
-    spec: "VALVED — QUAD EXIT — 4.1KG SAVED",
-    position: [0.52, -0.28, -2.5],
-    camera: [1.7, 0.25, -4.9],
-  },
-  {
-    id: "interior",
-    title: "INTERIOR",
-    spec: "FIXED-BACK SHELLS — ALCANTARA — HALF CAGE",
-    position: [0, 0.62, -0.3],
-    camera: [2.6, 1.7, 1.9],
   },
 ];
