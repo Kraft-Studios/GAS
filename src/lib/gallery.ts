@@ -75,7 +75,7 @@ export const PAGE_HEADER_BG = {
    glob). 1024x576, H.264, ~16.8s, already upright — no rotation fix
    needed this time. Full-bleed background for the Services masthead. */
 export const PAGE_HEADER_VIDEO = {
-  services: "/gas-services.mp4",
+  services: `${import.meta.env.BASE_URL}gas-services.mp4`,
 } as const;
 
 /* ------------------------------------------------------------------

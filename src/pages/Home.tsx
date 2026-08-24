@@ -25,7 +25,7 @@ export default function Home() {
 
       <CinematicBreak
         image={COLLECTIVE_POSTER}
-        video="/gas-collective.mp4"
+        video={`${import.meta.env.BASE_URL}gas-collective.mp4`}
         caption="EVERY FRAME OURS"
         statement="SHOT BY GAS"
       />

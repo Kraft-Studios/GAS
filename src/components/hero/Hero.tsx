@@ -36,7 +36,7 @@ import { HeroIntro } from "./HeroIntro";
    the statement arrives rather than the two running on separate clocks.
    ================================================================== */
 
-const HERO_VIDEO = "/gas-header.mp4";
+const HERO_VIDEO = `${import.meta.env.BASE_URL}gas-header.mp4`;
 
 /* Playback speed. 1 is the footage's native rate. Constant for the
    entire loop — see the note above on why this replaced a variable-rate

@@ -28,7 +28,7 @@ import { lockScroll, unlockScroll } from "@/lib/scrollLock";
    ================================================================== */
 
 const MAX_WAIT_MS = 4000;
-const HERO_VIDEO = "/gas-header.mp4";
+const HERO_VIDEO = `${import.meta.env.BASE_URL}gas-header.mp4`;
 
 type Step = { key: string; done: boolean };
 
